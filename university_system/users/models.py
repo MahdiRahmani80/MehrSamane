@@ -41,7 +41,7 @@ class StudentProfile(models.Model):
             d = self.enrollment
             year = gregorian2jalali(year=d.year,month=d.month, day=d.day)
             last_student = StudentProfile.objects.filter(student_id__startswith=str(year)).order_by("-student_id").first()
-            new_number = int(last_student.student_id[-4:]) +1 if last_student else 1
+            new_number = int(last_student.student_id[-3:]) +1 if last_student else 1
             self.student_id = f"{year}{new_number:03d}"
         super().save(*args,**kwargs)
 
@@ -61,6 +61,6 @@ class FacultyProfile(models.Model):
             d = self.enrollment
             year = gregorian2jalali(year=d.year,month=d.month, day=d.day)
             last_faculty = FacultyProfile.objects.filter(faculty_id__startswith=str(year)).order_by("-faculty_id").first()
-            new_number = int(last_faculty.faculty_id[-4:]) +1 if last_faculty else 1
+            new_number = int(last_faculty.faculty_id[-3:]) +1 if last_faculty else 1
             self.faculty_id = f"{year}{new_number:03d}"
         super().save(*args,**kwargs)
